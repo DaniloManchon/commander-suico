@@ -1,5 +1,5 @@
 from itertools import combinations
-import Mesa
+from model.mesaClass import Mesa
 
 def jogadores_ja_se_enfrentaram(jogadores):
     """
