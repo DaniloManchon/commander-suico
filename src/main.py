@@ -1,6 +1,6 @@
 import random
-from model.jogadorClass import Jogador
-from model.mesaClass import Mesa
+from model.jogador import Jogador
+from model.mesa import Mesa
 from service.emparelhamento import gerar_rodada_suica
 from service.desempates import calcular_buchholz
 
