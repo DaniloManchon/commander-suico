@@ -1,4 +1,5 @@
 from itertools import combinations
+import Mesa
 
 def jogadores_ja_se_enfrentaram(jogadores):
     """
