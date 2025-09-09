@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "commander-suico"
+version = "0.1.0"
+description = "Sistema suiço com Elo para FFA 4p"
+authors = [
+  "Danilo Manchon dos Santos",
+  "Jônatas Lima de Medeiros <jonatas.lima.medeiros@live.com>",
+]
+license = "GPL-3.0"
+readme = "README.md"
+packages = [{ include = "commander_suico", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.dev.dependencies]
+poethepoet = "^0.37.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+commander-suico = "commander_suico.__main__:main"

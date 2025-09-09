@@ -1,8 +1,8 @@
 import random
-from model.jogador import Jogador
-from model.mesa import Mesa
-from service.emparelhamento import gerar_rodada_suica
-from service.desempates import calcular_buchholz
+from commander_suico.model.jogador import Jogador
+from commander_suico.model.mesa import Mesa
+from commander_suico.service.emparelhamento import gerar_rodada_suica
+from commander_suico.service.desempates import calcular_buchholz
 
 NUM_JOGADORES = 16
 NUM_RODADAS = 3
