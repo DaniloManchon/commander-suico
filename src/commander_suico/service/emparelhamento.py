@@ -1,7 +1,10 @@
 from itertools import combinations
+
+from commander_suico.model.jogador import Jogador
 from commander_suico.model.mesa import Mesa
 
-def jogadores_ja_se_enfrentaram(jogadores):
+
+def jogadores_ja_se_enfrentaram(jogadores: Jogador) -> bool:
     """
     Verifica se algum jogador neste grupo de 4 já enfrentou todos os outros.
     Retorna True se houver qualquer repetição.
@@ -12,22 +15,19 @@ def jogadores_ja_se_enfrentaram(jogadores):
     return False
 
 
-def gerar_rodada_suica(jogadores):
+def gerar_rodada_suica(jogadores: Jogador) -> list[Mesa]:
     """
     Gera mesas para uma nova rodada do sistema suíço com 4 jogadores por mesa.
     Tenta evitar confrontos repetidos.
-    
+
     Parâmetros:
         jogadores: lista de instâncias de Jogador
-    
+
     Retorna:
         Lista de objetos Mesa
     """
     # Ordenar por pontuação, depois por Elo
-    jogadores_ordenados = sorted(
-        jogadores,
-        key=lambda j: (-j.pontuacao_torneio, -j.elo)
-    )
+    jogadores_ordenados = sorted(jogadores, key=lambda j: (-j.pontuacao_torneio, -j.elo))
 
     mesas = []
     usados = set()

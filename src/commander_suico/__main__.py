@@ -1,16 +1,32 @@
 import random
+
 from commander_suico.model.jogador import Jogador
-from commander_suico.model.mesa import Mesa
-from commander_suico.service.emparelhamento import gerar_rodada_suica
 from commander_suico.service.desempates import calcular_buchholz
+from commander_suico.service.emparelhamento import gerar_rodada_suica
 
 NUM_JOGADORES = 16
 NUM_RODADAS = 3
+
+
 def main():
     # Criar jogadores com nomes fictícios e Elo base
     nomes = [
-        "Alice", "Bob", "Carol", "David", "Eve", "Frank", "Grace", "Heidi",
-        "Ivan", "Judy", "Mallory", "Niaj", "Olivia", "Peggy", "Sybil", "Trent"
+        "Alice",
+        "Bob",
+        "Carol",
+        "David",
+        "Eve",
+        "Frank",
+        "Grace",
+        "Heidi",
+        "Ivan",
+        "Judy",
+        "Mallory",
+        "Niaj",
+        "Olivia",
+        "Peggy",
+        "Sybil",
+        "Trent",
     ]
 
     jogadores = [Jogador(nome, elo=random.randint(1400, 1600)) for nome in nomes[:NUM_JOGADORES]]
@@ -39,22 +55,17 @@ def main():
     ranking_final = []
     for jogador in jogadores:
         buchholz = calcular_buchholz(jogador, jogadores)
-        ranking_final.append({
-            'nome': jogador.nome,
-            'pontos': jogador.pontuacao_torneio,
-            'elo': jogador.elo,
-            'buchholz': buchholz
-        })
+        ranking_final.append(
+            {"nome": jogador.nome, "pontos": jogador.pontuacao_torneio, "elo": jogador.elo, "buchholz": buchholz}
+        )
 
     # Ordenar por pontos > buchholz > elo
-    ranking_ordenado = sorted(
-        ranking_final,
-        key=lambda x: (-x['pontos'], -x['buchholz'], -x['elo'])
-    )
+    ranking_ordenado = sorted(ranking_final, key=lambda x: (-x["pontos"], -x["buchholz"], -x["elo"]))
 
     # Mostrar ranking
     for i, j in enumerate(ranking_ordenado, start=1):
         print(f"{i:2d}. {j['nome']:10} | Pontos: {j['pontos']:.2f} | Buchholz: {j['buchholz']:.2f} | Elo: {j['elo']}")
+
 
 if __name__ == "__main__":
     main()
