@@ -12,9 +12,18 @@ packages = [{ include = "commander_suico", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.12"
+fastapi = { extras = ["standard"], version = "^0.116.1" }
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.37.0"
+ruff = "^0.13.0"
+black = "^25.1.0"
+pytest = "^8.4.2"
+pyright = "^1.1.405"
+pytest-cov = "^7.0.0"
+pytest-asyncio = "^1.1.0"
+httpx = "^0.28.1"
+asgi-lifespan = "^2.1.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -22,3 +31,80 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 commander-suico = "commander_suico.__main__:main"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+extend-exclude = [".venv", "venv", "build", "dist", "__pypackages__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "FAST"]
+ignore = ["E501", "B008", "B904", "FAST001"]
+per-file-ignores = { "__init__.py" = ["F401"] }
+
+[tool.ruff.lint.isort]
+known-first-party = ["commander_suico"]
+
+[tool.black]
+target-version = ["py312"]
+line-length = 120
+
+[tool.pytest.ini_options]
+# Saída concisa, falha em markers desconhecidos e cobertura básica
+addopts = """
+  -q
+  --strict-markers
+  --cov=commander_suico
+  --cov-report=term-missing
+"""
+# Onde procurar testes
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+
+# Execução de testes assíncronos (requer pytest-asyncio)
+asyncio_mode = "auto"
+
+# Registre seus markers (para poder filtrar com -m)
+markers = [
+  "unit: testes rápidos e isolados",
+  "integration: dependem de recursos externos (DB, rede, etc.)",
+  "e2e: fluxo fim-a-fim",
+  "slow: testes demorados",
+]
+
+# Torne warnings importantes (ajuste conforme seu projeto)
+filterwarnings = ["error::DeprecationWarning"]
+
+# (Opcional) logging nos testes
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)s] %(message)s"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+
+[tool.pyright]
+# Versão de Python do seu projeto
+pythonVersion = "3.12"
+pythonPlatform = "All"
+
+# Onde procurar código
+include = ["src", "tests"]
+
+# Se tiver arquivos a ignorar
+exclude = [".venv", "build", "dist"]
+
+# Nível de checagem
+typeCheckingMode = "strict" # pode ser "off", "basic", "strict"
+
+# Se quiser relatórios mais detalhados
+reportMissingImports = true
+reportUnusedImport = true
+reportUnusedVariable = true
+
+[tool.poe.tasks]
+lint = "ruff check ."
+format = "black ."
+formatfix = "ruff check --fix . && black ."
+test = "pytest -q"
+coverage = "pytest -q --cov=commander_suico --cov-report=term-missing"
+typecheck = "pyright"
+ci = ["lint", "typecheck", "test"]                                     # roda em sequência
