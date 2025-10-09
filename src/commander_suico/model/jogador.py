@@ -1,9 +1,12 @@
 class Jogador:
-    def __init__(self, nome, elo=1500):
+    def __init__(self, id, username, link, nome, elo=1500):
         """
-        Cria um jogador com nome e Elo inicial (padrão: 1500).
+        Cria um jogador com elo inicial (padrão: 1500).
         """
         self.nome = nome
+        self.id = id
+        self.username = username
+        self.link = link
         self.elo = elo
         self.pontuacao_torneio = 0  # Pontos acumulados no torneio
         self.oponentes = set()      # Registro de oponentes enfrentados
@@ -28,3 +31,15 @@ class Jogador:
 
     def __repr__(self):
         return f"{self.nome} (Elo: {self.elo}, Pontos: {self.pontuacao_torneio})"
+
+    def alterar_nome(self, novo_nome): 
+        """
+        Altera o nome do jogador
+        """
+        self.nome = novo_nome
+
+    def alterar_link(self, novo_link): 
+        """
+        Altera o link do deck do jogador
+        """
+        self.link = novo_link

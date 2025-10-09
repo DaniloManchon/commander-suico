@@ -1,9 +1,10 @@
 class Mesa:
-    def __init__(self, jogadores):
+    def __init__(self, numero, jogadores):
         """
         Cria uma mesa com 4 jogadores.
         :param jogadores: Lista de 4 instâncias da classe Jogador
         """
+        self.numero = numero
         if len(jogadores) != 4:
             raise ValueError("Uma mesa deve ter exatamente 4 jogadores.")
         self.jogadores = jogadores

@@ -12,6 +12,7 @@ packages = [{ include = "commander_suico", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.12"
+fastapi = "^0.118.2"
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.37.0"

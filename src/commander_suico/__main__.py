@@ -1,6 +1,5 @@
 import random
 from commander_suico.model.jogador import Jogador
-from commander_suico.model.mesa import Mesa
 from commander_suico.service.emparelhamento import gerar_rodada_suica
 from commander_suico.service.desempates import calcular_buchholz
 
